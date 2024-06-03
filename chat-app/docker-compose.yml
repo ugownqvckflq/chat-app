@@ -1,0 +1,28 @@
+version: '3.8' # Update to a newer version
+
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=nick
+      - MONGO_INITDB_ROOT_PASSWORD=nick
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: nick
+      ME_CONFIG_MONGODB_ADMINPASSWORD: nick
+      ME_CONFIG_MONGODB_URL: mongodb://nick:nick@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+
+volumes:
+  mongo_data: # Define the volume here
